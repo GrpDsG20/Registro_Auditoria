@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://wwww.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Auditoria</title>
+	<!-- plugins:css -->
+	<link rel="stylesheet" th:href="@{/vendors/feather/feather.css}">
+	<link rel="stylesheet" th:href="@{/vendors/ti-icons/css/themify-icons.css}">
+	<link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}">
+	<!-- endinject -->
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" th:href="@{/vendors/mdi/css/materialdesignicons.min.css}">
+	<link rel="stylesheet" th:href="@{/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
+	<link rel="stylesheet" th:href="@{/vendors/ti-icons/css/themify-icons.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/js/select.dataTables.min.css}">
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" th:href="@{/css/vertical-layout-light/style.css}">
+	<!-- endinject -->
+	<link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+</head>
+
+<body>
+	<div class="container-scroller">
+		<!-- partial:partials/_navbar.html -->
+		<header th:replace="layout/layout :: header"></header>
+		<!-- partial -->
+		<div class="container-fluid page-body">
+			<!-- partial:partials/_settings-panel.html -->
+
+
+
+			<form th:action="@{/guardarAudi}" th:object="${auditoria}" method="post">
+				<div class="container-fluid" style="padding: 40px; width: 90%;">
+					<h1 class="text-center p-4 h3 py-3 mt-3 mb-4 text-muted">Registro de Auditorio</h1>
+
+					<P class=" h3 py-3 mb-4 h5 text-muted">Datos de LLamada</P>
+					<div class="row">
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="fecha">Fecha:</label>
+								<input type="text" class="form-control" id="fecha" name="fecha"
+									th:value="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd HH:mm')}"
+									readonly />
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+
+								<div class="form-group">
+									<label for="tipo">Tipo de llamada: </label>
+									<select id="tipo" class="form-control" th:field="*{TIPO_LLAMADA}"
+										required="required">
+										<option value="" selected>Seleccione:</option>
+										<option th:each="opcion : ${opcionTipoLLamada}" th:value="${opcion}"
+											th:text="${opcion}"></option>
+									</select>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="duracion">Duración de llamada:</label> <input type="number"
+									th:field="*{TIEMPO_LLAMADA}" class="form-control"
+									th:errorclass="'form-control alert-danger'" required="required" />
+							</div>
+						</div>
+						<div class="col-lg-3">
+
+							<div class="form-group">
+								<label for="calidad">Calidad : </label> <select id="calidad" class="form-control"
+									th:field="*{CALIDAD}" required="required">
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionCalidad}" th:value="${opcion}"
+										th:text="${opcion}"></option>
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- TWO COLUMM -->
+
+					<div class="row">
+
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="asesor">Asesor:</label> <input type="text" th:field="*{ASESOR}"
+									class="form-control" th:errorclass="'form-control alert-danger'"
+									required="required" />
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="cartera">Cartera:</label> <input type="text" th:field="*{CARTERA}"
+									class="form-control" th:errorclass="'form-control alert-danger'"
+									required="required" />
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="coordinador">Coordinador:</label> <input type="text"
+									th:field="*{COORDINADOR}" class="form-control"
+									th:errorclass="'form-control alert-danger'" required="required" />
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="oficina">Oficina: </label> <select id="oficina" class="form-control"
+									th:field="*{OFICINA}" required="required">
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionOficina}" th:value="${opcion}"
+										th:text="${opcion}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<!-- THREE COLUM -->
+
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="cliente">Nombre del Cliente:</label> <input type="text"
+									th:field="*{NOMBRE_DEL_CLIENTE}" class="form-control"
+									th:errorclass="'form-control alert-danger'" required="required" />
+							</div>
+						</div>
+					</div>
+
+					<!-- FOUR COLUM -->
+
+					<P class=" h3 py-3 mb-4 h5 text-muted">Registro de Score</P>
+
+
+					<div class="row">
+
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="tipoContac">Tipo de Contacto: </label> <select id="tipoContac"
+									class="form-control" th:field="*{TIPO_DE_CONTACTO}" required="required">
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionTipoCon}" th:value="${opcion}"
+										th:text="${opcion}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="result">Resultados: </label> <select id="result" class="form-control"
+									th:field="*{RESULTADO}" required="required">
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionRe}" th:value="${opcion}" th:text="${opcion}">
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="tipificacion">Tipificación: </label> <select id="tipificacion"
+									class="form-control" th:field="*{TIPIFICACION}" required="required">
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionTipificacion}" th:value="${opcion}"
+										th:text="${opcion}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="motivo">Motivo de Llamada: </label> <select id="motivo" class="form-control"
+									th:field="*{MOTIVO_DE_LLAMADA}" required="required">
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionMotivo}" th:value="${opcion}" th:text="${opcion}">
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="campoObs">Campo de Observaciones: </label> <select id="campoObs"
+									class="form-control" th:field="*{CAMPO_DE_OBSERVACIONES}" required="required">
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionObservaciones}" th:value="${opcion}"
+										th:text="${opcion}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- COLUMM - ENCUESTA -->
+					<h2 class="h5 py-3 mt-3 mb-4 text-muted">Preguntas de Auditoria</h2>
+
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<div class="table-responsive">
+								<table class="custom-table table-bordered table-striped">
+									<tbody>
+										<tr>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1"
+															class="form-check-label d-block pt-3">¿Saludo?</label><br>
+
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label class="form-check-label" for="P1Si">
+																	<input class="form-check-input" type="radio"
+																		id="P1Si" name="P1" value="Si"
+																		th:checked="${auditoria.P1 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label class="form-check-label" for="P1No">
+																	<input class="form-check-input" type="radio"
+																		id="P1No" name="P1" value="No"
+																		th:checked="${auditoria.P1 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label class="form-check-label" for="P1NA">
+																	<input class=" form-check-input" type="radio"
+																		id="P1NA" name="P1" value="N/A"
+																		th:checked="${auditoria.P1 == 'N/A'}"> N/A
+																</label>
+															</div>
+														</div>
+													</div>
+												</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P2" class="form-check-label d-block pt-3">¿Asesor se
+															Identifica?</label><br>
+
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input border" type="radio"
+																		id="P2Si" name="P2" value="Si"
+																		th:checked="${auditoria.P2 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input border" type="radio"
+																		id="P2No" name="P2" value="No"
+																		th:checked="${auditoria.P2 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input border" type="radio"
+																		id="P2NA" name="P2" value="N/A"
+																		th:checked="${auditoria.P2 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P3"
+															class="form-check-label d-block pt-3">¿Identifica al
+															Cliente?</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P3Si" name="P3" value="Si"
+																		th:checked="${auditoria.P3 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P3No" name="P3" value="No"
+																		th:checked="${auditoria.P3 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P3TERCERO" name="P3" value="TERCERO"
+																		th:checked="${auditoria.P3 == 'TERCERO'}">Tercero
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P4" class="form-check-label d-block pt-4">¿Sondea el
+															Motivo de Incumplimiento?</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P4Si" name="P4" value="Si"
+																		th:checked="${auditoria.P4 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P4No" name="P4" value="No"
+																		th:checked="${auditoria.P4 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P4NA" name="P4" value="N/A"
+																		th:checked="${auditoria.P4 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P5" class="form-check-label d-block pt-4">¿Rebate
+															Objeciones<br> Negociación?</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P5Si" name="P5" value="Si"
+																		th:checked="${auditoria.P5 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P5No" name="P5" value="No"
+																		th:checked="${auditoria.P5 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P5NA" name="P5" value="N/A"
+																		th:checked="${auditoria.P5 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+
+
+						</div>
+					</div>
+
+
+
+					<br>
+					<!-- SEVEN COLUMM - ENCUESTA -->
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<div class="table-responsive">
+								<table class="custom-table table-bordered table-striped ">
+									<tbody>
+										<tr>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P8" class="form-check-label d-block pt-4">¿Informa
+															Procesos Legales?</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P8Si" name="P8" value="Si"
+																		th:checked="${auditoria.P8 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P8No" name="P8" value="No"
+																		th:checked="${auditoria.P8 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P8NA" name="P8" value="N/A"
+																		th:checked="${auditoria.P8 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P9" class="form-check-label d-block pt-4 ">¿Realiza
+															Seguimiento en<br> el Plazo Acordado?</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P9Si" name="P9" value="Si"
+																		th:checked="${auditoria.P9 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P9No" name="P9" value="No"
+																		th:checked="${auditoria.P9 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P9NA" name="P9" value="N/A"
+																		th:checked="${auditoria.P9 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P10" class="form-check-label d-block pt-4">¿Informa
+															que se Enviará<br> un Mensaje WhatsApp?</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P10Si" name="P10" value="Si"
+																		th:checked="${auditoria.P10 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+															</div>
+															<label>
+																<input class="form-check-input" type="radio" id="P10No"
+																	name="P10" value="No"
+																	th:checked="${auditoria.P10 == 'No'}"> No
+															</label>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P10NA" name="P10" value="N/A"
+																		th:checked="${auditoria.P10 == 'N/A'}"> N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P11" class="form-check-label d-block pt-4">¿Acuerda
+															Compromiso de Pago?</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P11Si" name="P11" value="Si"
+																		th:checked="${auditoria.P11 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P11No" name="P11" value="No"
+																		th:checked="${auditoria.P11 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P11NA" name="P11" value="N/A"
+																		th:checked="${auditoria.P11 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P12" class="form-check-label d-block pt-3">¿Acuerda
+															Pago en 24/48 Horas?</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P12Si" name="P12" value="Si"
+																		th:checked="${auditoria.P12 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P12No" name="P12" value="No"
+																		th:checked="${auditoria.P12 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P12NA" name="P12" value="N/A"
+																		th:checked="${auditoria.P12 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<br>
+
+					<!-- EIGHT COLUMM - ENCUESTA -->
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<div class="table-responsive">
+								<table class="custom-table table-bordered table-striped">
+									<tbody>
+										<tr>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P13" class="form-check-label d-block pt-4">¿Solicita
+															Número de Contacto<br>Adicional?</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P13Si" name="P13" value="Si"
+																		th:checked="${auditoria.P13 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P13No" name="P13" value="No"
+																		th:checked="${auditoria.P13 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P13NA" name="P13" value="N/A"
+																		th:checked="${auditoria.P13 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P14" class="form-check-label d-block pt-4">¿Explica
+															el Proceso de Pago y<br> Documentación?</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P14Si" name="P14" value="Si"
+																		th:checked="${auditoria.P14 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P14No" name="P14" value="No"
+																		th:checked="${auditoria.P14 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P14NA" name="P14" value="N/A"
+																		th:checked="${auditoria.P14 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+
+													<div>
+														<label for="P15" class="form-check-label d-block pt-4">¿Aplica
+															Speech de Compromiso Pago?</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P15Si" name="P15" value="Si"
+																		th:checked="${auditoria.P15 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P15No" name="P15" value="No"
+																		th:checked="${auditoria.P15 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P15NA" name="P15" value="N/A"
+																		th:checked="${auditoria.P15 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P11" class="form-check-label d-block pt-4">¿Escucha
+															Activa/Lectura de Historia de Gestiones?:</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P20Si" name="P20" value="Si"
+																		th:checked="${auditoria.P20 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P20No" name="P20" value="No"
+																		th:checked="${auditoria.P20 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P20NA" name="P20" value="N/A"
+																		th:checked="${auditoria.P20 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+
+														<label for="P21"
+															class="form-check-label d-block pt-4">¿Empatía?:</label><br>
+														<div class="text-center">
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P21Si" name="P21" value="Si"
+																		th:checked="${auditoria.P21 == 'Si'}" required>
+																	Si
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P21No" name="P21" value="No"
+																		th:checked="${auditoria.P21 == 'No'}"> No
+																</label>
+															</div>
+															<div class="form-check-inline">
+																<label>
+																	<input class="form-check-input" type="radio"
+																		id="P21NA" name="P21" value="N/A"
+																		th:checked="${auditoria.P21 == 'N/A'}">N/A
+																</label>
+															</div>
+														</div>
+													</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<br>
+
+					<!-- LAST COLUMM -->
+
+					<h2 class="h5 py-3 mt-3 mb-4 text-muted">Habilidades</h2>
+
+					<div class="row">
+
+
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="tonovoz">Tono de Voz </label> <select id="tonovoz" class="form-control"
+									th:field="*{P16}" required>
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionTonovoz}" th:value="${opcion}"
+										th:text="${opcion}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="vocalizacion">Vocalización </label> <select id="vocalizacion"
+									class="form-control" th:field="*{P17}" required>
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionVocalizacion}" th:value="${opcion}"
+										th:text="${opcion}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="argCono">Argumentos / Conocimientos </label> <select id="argCono"
+									class="form-control" th:field="*{P18}" required>
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionArgcono}" th:value="${opcion}"
+										th:text="${opcion}"></option>
+								</select>
+							</div>
+						</div>
+
+
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="actitud">Negociacion</label> <select id="actitud" class="form-control"
+									th:field="*{P19}" required>
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionActitud}" th:value="${opcion}"
+										th:text="${opcion}"></option>
+								</select>
+							</div>
+						</div>
+
+						<!-- LAST TWO COLUMM -->
+
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="infoDeuda">¿Informa Sobre Deuda? : </label> <select id="infoDeuda"
+									class="form-control" th:field="*{P6}" required>
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionInfodeuda}" th:value="${opcion}"
+										th:text="${opcion}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="infoCamp">¿Informacion Sobre Campaña / Negocio Pago?: </label>
+								<select id="infoCamp" class="form-control" th:field="*{P7}" required>
+									<option value="" selected>Seleccione:</option>
+									<option th:each="opcion : ${opcionInfoCamp}" th:value="${opcion}"
+										th:text="${opcion}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<br>
+
+					<br>
+					<!-- eleven COLUM - encuesta -->
+
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="detalleLla">Detalle de Llamada</label> <textarea
+									th:field="*{DETALLE_DE_LLAMADA}" class="form-control"
+									th:errorclass="'form-control alert-danger'"
+									style="height: 150px; overflow: auto; overflow-wrap: break-word;"></textarea>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="feed1">FeedBack-Punto de Mejora</label> <textarea th:field="*{FEEDBACK_1}"
+									class="form-control" th:errorclass="'form-control alert-danger'"
+									style="height: 150px; overflow: auto; overflow-wrap: break-word;"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="feed2">FeedBack-Punto Resaltante</label> <textarea th:field="*{FEEDBACK_2}"
+									class="form-control" th:errorclass="'form-control alert-danger'"
+									style="height: 150px; overflow: auto; overflow-wrap: break-word;"></textarea>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="audio">Audio</label> <textarea type="text" th:field="*{AUDIO}" required
+									class="form-control" th:errorclass="'form-control alert-danger'"
+									style="height: 150px; overflow: auto; overflow-wrap: break-word;"></textarea>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Botón para enviar el formulario -->
+
+				<div class="box-footer mt- mb-4" style="margin-left:120px">
+					<button type="submit" class="btn btn-dark px-4 py-3">Guardar</button>
+				</div>
+				<br>
+			</form>
+		</div>
+		<!-- content-wrapper ends -->
+		<!-- partial:partials/_footer.html -->
+		<footer class="footer">
+			<div class="d-sm-flex justify-content-center justify-content-sm-between">
+				<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright
+					© 2023. Todos los derechos reservados.</span>
+			</div>
+
+		</footer>
+		<!-- partial -->
+	</div>
+	<!-- plugins:js -->
+	<script src="/vendors/js/vendor.bundle.base.js"></script>
+	<!-- endinject -->
+	<!-- Plugin js for this page -->
+	<script src="/vendors/chart.js/Chart.min.js"></script>
+	<script src="/vendors/datatables.net/jquery.dataTables.js"></script>
+	<script src="/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+	<script src="/js/dataTables.select.min.js"></script>
+
+	<!-- End plugin js for this page -->
+	<!-- inject:js -->
+	<script src="/js/off-canvas.js"></script>
+	<script src="/js/hoverable-collapse.js"></script>
+	<script src="/js/template.js"></script>
+	<script src="/js/settings.js"></script>
+	<script src="/js/todolist.js"></script>
+	<!-- endinject -->
+	<!-- Custom js for this page-->
+	<script src="/js/dashboard.js"></script>
+	<script src="/js/Chart.roundedBarCharts.js"></script>
+	<!-- End custom js for this page-->
+</body>
+
+</html>

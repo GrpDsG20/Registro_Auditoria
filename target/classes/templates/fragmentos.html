@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<div th:fragment="html_navbar">
+		<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+			<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+				style="height: 80px;">
+				<a class="navbar-brand brand-logo mr-5" th:href="@{/Menu}"><img src="images/logo.jpg" class="mr-2"
+						alt="logo" style="width: 50px;height: 50px;" />
+				</a>
+				<a class="navbar-brand brand-logo-mini" th:href="@{/}"><img src="images/logo-mini.svg" alt="logo" /></a>
+			</div>
+			<div class="navbar-menu-wrapper  align-items-center justify-content-center" style="height: 80px;">
+				<a>
+					<div sec:authorize="isAuthenticated()" style="position: absolute;
+     			 top: 50%;
+   				left: 250px;
+     			transform: translate(-50%, -50%);">
+						<h3 class="font-weight-bold" style="color: black;">Bienvenido: <span sec:authentication="name"
+								style="font-weight: 
+        bold;font-size: 25px; color:#5E50F9;"> Username</span></h3>
+
+					</div>
+				</a>
+
+				<!-- 		<a th:href="@{/Menu}" sec:authorize="hasAnyAuthority('ADMIN')" style=" position: absolute;top: 50%;right: 110px; transform: translate(-50%, -50%);">			 -->
+				<!-- 			<input type="submit" value="Crear Auditoria" class="btn btn-success"> -->
+				</a>
+				<form th:action="@{/logout}" method="post"
+					style=" position: absolute;top: 50%;right: -30px; transform: translate(-50%, -50%);">
+					<input type="submit" value="Cerrar Sesion" class="btn btn-danger">
+				</form>
+			</div>
+		</nav>
+	</div>
+
+</body>
+
+</html>

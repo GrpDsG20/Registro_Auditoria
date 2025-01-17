@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://wwww.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Editar Auditoria</title>
+	<!-- plugins:css -->
+	<link rel="stylesheet" th:href="@{/vendors/feather/feather.css}">
+	<link rel="stylesheet" th:href="@{/vendors/ti-icons/css/themify-icons.css}">
+	<link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}">
+	<!-- endinject -->
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" th:href="@{/vendors/mdi/css/materialdesignicons.min.css}">
+	<link rel="stylesheet" th:href="@{/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
+	<link rel="stylesheet" th:href="@{/vendors/ti-icons/css/themify-icons.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/js/select.dataTables.min.css}">
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" th:href="@{/css/vertical-layout-light/style.css}">
+	<!-- endinject -->
+	<link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+
+</head>
+
+
+<body>
+	<div class="container-scroller">
+		<!-- partial:partials/_navbar.html -->
+		<header th:replace="layout/layout :: header"></header>
+		<!-- partial -->
+		<div class="container-fluid page-body">
+
+
+			
+				<div class="container-fluid" style="padding: 40px; width: 90%;">
+
+					<h1 class="text-center p-4 h3 py-3 mt-3 mb-4 text-muted">Detalle Auditoria</h1>
+
+					<P class=" h3 py-3 mb-4 h5 text-muted">Datos de LLamada</P>
+					<div class="row">
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="codigo">Código:</label>
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${auditoria.ID}"></span></div>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="fecha">Fecha:</label>
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${#dates.format(auditoria.FECHA, 'yyyy-MM-dd HH:mm')}"></span></div>
+
+									
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+
+								<div class="form-group">
+									<label for="tipo">Tipo de llamada: </label>
+									<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+										th:text="${auditoria.TIPO_LLAMADA}"></span></div>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="duracion">Duración de llamada:</label> 
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${auditoria.TIEMPO_LLAMADA}"></span></div>
+							</div>
+						</div>
+						<div class="col-lg-6 p-3">
+							<div class="form-group">
+								<label for="calidad">Calidad: </label> 
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${auditoria.CALIDAD}"></span></div>
+							</div>
+
+						</div>
+						<div class="col-lg-6 p-3">
+							<div class="form-group">
+								<label for="cartera">Cartera:</label> 
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${auditoria.CARTERA}"></span></div>
+							</div>
+						</div>
+					</div>
+
+					<!-- TWO COLUMM -->
+
+					<div class="row">
+
+						<div class="col-lg-3 p-3">
+							<div class="form-group">
+								<label for="asesor">Asesor:</label> 
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${auditoria.ASESOR}"></span></div>
+							</div>
+						</div>
+						<div class="col-lg-3 p-3">
+							<div class="form-group">
+								<label for="coordinador">Coordinador:</label> 
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${auditoria.COORDINADOR}"></span></div>
+							</div>
+						</div>
+						<div class="col-lg-3 p-3">
+							<div class="form-group">
+								<label for="oficina">Oficina: </label> 
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${auditoria.OFICINA}"></span></div>
+							</div>
+						</div>
+
+							<div class="col-lg-3 p-3">
+								<div class="form-group">
+									<label for="cliente">Nombre del Cliente:</label>
+									<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+										th:text="${auditoria.NOMBRE_DEL_CLIENTE}"></span></div>
+								</div>
+							</div>
+
+					</div>
+
+					<!-- FOUR COLUM -->
+
+					<P class=" h3 py-3 mb-4 h5 text-muted">Registro de Score</P>
+
+
+					<div class="row">
+
+						<div class="col-lg-3 p-2" >
+							<div class="form-group">
+								<label for="tipoContac">Tipo de Contacto: </label>
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${auditoria.TIPO_DE_CONTACTO}"></span></div>
+							</div>
+						</div>
+						<div class="col-lg-3 p-2">
+							<div class="form-group">
+								<label for="result">Resultados: </label> 
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${auditoria.RESULTADO}"></span></div>
+							</div>
+						</div>
+						<div class="col-lg-3 p-2">
+							<div class="form-group">
+								<label for="tipificacion">Tipificación: </label>
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${auditoria.TIPIFICACION}"></span></div>
+							</div>
+						</div>
+						<div class="col-lg-3 p-2">
+							<div class="form-group">
+								<label for="motivo">Motivo de Llamada: </label> 
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb;height:auto;"><span
+									th:text="${auditoria.MOTIVO_DE_LLAMADA}"></span></div>
+							</div>
+						</div>
+						<div class="col-lg-6 p-3">
+							<div class="form-group">
+								<label for="campoObs">Campo de Observaciones: </label>
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb; height:auto;"><span
+									th:text="${auditoria.CAMPO_DE_OBSERVACIONES}"></span></div>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- COLUMM - ENCUESTA -->
+					<h2 class="h5 py-3 mt-3 mb-4 text-muted">Preguntas de Auditoria</h2>
+
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<div class="table-responsive">
+								<table class="custom-table table-bordered table-striped">
+									<tbody>
+										<tr>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Saludo?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P1}"></label></strong>
+													</div>
+												</div>
+											</td>
+											
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Asesor se Identifica?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P2}"></label></strong>
+													</div>
+												</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Identifica al Cliente?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P3}"></label></strong>
+													</div>
+												</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Sondea el Motivo de Incumplimiento?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P4}"></label></strong>
+													</div>
+												</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Rebate Objeciones/Negociación?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P5}"></label></strong>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+
+					<br>
+					<!-- SEVEN COLUMM - ENCUESTA -->
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<div class="table-responsive">
+								<table class="custom-table table-bordered table-striped ">
+									<tbody>
+										<tr>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Informa Procesos Legales?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P8}"></label></strong>
+													</div>
+												</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Realiza Seguimiento en el Plazo Acordado?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P9}"></label></strong>
+													</div>
+												</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Informa que se Enviará un Mensaje WhatsApp?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P10}"></label></strong>
+													</div>
+												</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Acuerda Compromiso de Pago?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P11}"></label></strong>
+													</div>
+												</div>
+											</td>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Acuerda Pago en 24/48 Horas?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P12}"></label></strong>
+													</div>
+												</div>
+											</td>
+						
+
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<br>
+
+					<!-- EIGHT COLUMM - ENCUESTA -->
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<div class="table-responsive">
+								<table class="custom-table table-bordered table-striped">
+									<tbody>
+										<tr>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Solicita Número de Contacto Adicional?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P13}"></label></strong>
+													</div>
+												</div>
+											</td>
+						
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Explica el Proceso de Pago y Documentación?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P14}"></label></strong>
+													</div>
+												</div>
+											</td>
+
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Aplica Speech de Compromiso Pago?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P15}"></label></strong>
+													</div>
+												</div>
+											</td>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Escucha Activa/Lectura de Historia de Gestiones?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P20}"></label></strong>
+													</div>
+												</div>
+											</td>
+											<td class="col-lg-2 text-center">
+												<div class="form-group">
+													<div>
+														<label for="P1" class="form-check-label d-block pt-3">¿Empatía?</label><br>
+														<strong><label class="text-center" th:text="${auditoria.P21}"></label></strong>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<br>
+
+					<!-- LAST COLUMM -->
+
+					<h2 class="h5 py-3 mt-3 mb-4 text-muted">Habilidades</h2>
+					<div class="row">
+
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="tonovoz">Tono de Voz </label> 
+								<div class="form-control" id="textarea4" style="height: auto; background-color:#f3f4fb;"><span
+									th:text="${auditoria.P16}"></span></div>
+
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="vocalizacion">Vocalización </label> 
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb;"><span
+									th:text="${auditoria.P17}"></span></div>
+
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="argCono">Argumentos / Conocimientos </label> 
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb;"><span
+									th:text="${auditoria.P18}"></span></div>
+
+							</div>
+						</div>
+
+
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="actitud">Negociacion</label> 
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb;"><span
+									th:text="${auditoria.P19}"></span></div>
+
+							</div>
+						</div>
+
+						<!-- LAST TWO COLUMM -->
+
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="infoDeuda">¿Informa Sobre Deuda? : </label>
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb;"><span
+									th:text="${auditoria.P6}"></span></div>
+
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="infoCamp">¿Informacion Sobre Campaña / Negocio Pago?: </label>
+								<div class="form-control" id="textarea4" style="background-color:#f3f4fb;"><span
+									th:text="${auditoria.P7}"></span></div>
+							</div>
+						</div>
+					</div>
+					<br>
+
+					<br>
+					<!-- eleven COLUM - encuesta -->
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="detalleLla">Detalle de Llamada</label> 
+								<div class="form-control overflow-auto" id="textarea4" style="height:150px; background-color:#f3f4fb;"><span
+									th:text="${auditoria.DETALLE_DE_LLAMADA}"></span></div>
+								
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="feed1">FeedBack-Punto de Mejora</label> 
+								<div class="form-control overflow-auto" id="textarea4" style="height:150px; background-color:#f3f4fb;">
+									<span th:text="${auditoria.FEEDBACK_1}"></span></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="feed2">FeedBack-Punto Resaltante</label> 
+								<div class="form-control overflow-auto" id="textarea4" style="height:100px; background-color:#f3f4fb;"><span
+									th:text="${auditoria.FEEDBACK_2}"></span></div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+							  <label for="audio">Audio</label>
+							  <div class="form-control overflow-auto" id="textarea4" style="height: 100px; background-color: #f3f4fb; white-space: pre-line;">
+								<span class="text-muted" id="output" th:text="${auditoria.AUDIO}"></span>
+							  </div>
+							</div>
+						  </div>
+					</div>
+					<div class="box-footer mt-4 mb-4">
+						<a th:href="@{/expPDF/}+${auditoria.ID}"  class="btn btn-dark px-4 py-3">
+							<i class="mdi mdi-file-pdf-box mr-1"></i>Descargar</a>
+					</div></a>
+				</div>
+				<!-- Botón para enviar el formulario -->
+				<br>
+		</div>
+		<!-- content-wrapper ends -->
+		<!-- partial:partials/_footer.html -->
+		<footer class="footer">
+			<div class="d-sm-flex justify-content-center justify-content-sm-between">
+				<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright
+					© 2023. Todos los derechos reservados.</span>
+			</div>
+
+		</footer>
+		<!-- partial -->
+	</div>
+
+	<script>
+		var textarea = document.getElementById("textarea4");
+		var output = document.getElementById("output");
+	  
+		output.innerHTML = output.innerHTML.replace(/(https?:\/\/[^\s]+)/g, function(url) {
+		  return '<a href="' + url + '">' + url + '</a>';
+		});
+	  </script>
+
+	<!-- plugins:js -->
+	<script src="/vendors/js/vendor.bundle.base.js"></script>
+	<!-- endinject -->
+	<!-- Plugin js for this page -->
+	<script src="/vendors/chart.js/Chart.min.js"></script>
+	<script src="/vendors/datatables.net/jquery.dataTables.js"></script>
+	<script src="/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+	<script src="/js/dataTables.select.min.js"></script>
+
+	<!-- End plugin js for this page -->
+	<!-- inject:js -->
+	<script src="/js/off-canvas.js"></script>
+	<script src="/js/hoverable-collapse.js"></script>
+	<script src="/js/template.js"></script>
+	<script src="/js/settings.js"></script>
+	<script src="/js/todolist.js"></script>
+	<!-- endinject -->
+	<!-- Custom js for this page-->
+	<script src="/js/dashboard.js"></script>
+	<script src="/js/Chart.roundedBarCharts.js"></script>
+	<!-- End custom js for this page-->
+</body>
+
+</html>

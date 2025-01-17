@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://wwww.thymeleaf.org" th:fragment="layout">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Auditoria</title>
+	<!-- plugins:css -->
+	<link rel="stylesheet" th:href="@{/vendors/feather/feather.css}">
+	<link rel="stylesheet" th:href="@{/vendors/ti-icons/css/themify-icons.css}">
+	<link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}">
+	<!-- endinject -->
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" th:href="@{/vendors/mdi/css/materialdesignicons.min.css}">
+	<link rel="stylesheet" th:href="@{/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
+	<link rel="stylesheet" th:href="@{/vendors/ti-icons/css/themify-icons.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/js/select.dataTables.min.css}">
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" th:href="@{/css/vertical-layout-light/style.css}">
+	<!-- endinject -->
+	<link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+
+<style>
+
+@media (min-width: 1600px) {
+	.col-md-14 {
+	  flex: 0 0 100%;
+	  max-width: 100%;
+	}
+  }
+</style>
+</head>
+
+<body>
+	<div class="container-scroller">
+		<!-- partial:partials/_navbar.html -->
+		<header th:replace="layout/layout :: header"></header>
+
+		<!-- partial -->
+		<div class="container-fluid page-body-wrapper p-0">
+			<!-- partial:partials/_settings-panel.html -->
+
+			<div class="main-panel" style="width:100%; height:auto;">
+				<div class="content-wrapper" style="padding: 1rem 2rem 1rem 2rem;">
+					<div class="row">
+						<div class="col-md-12 grid-margin">
+							<div class="row"></div>
+
+						</div>
+					</div>
+					<div class="row" style="margin-bottom: 15px;">
+						<div class="col-sm-12 col-md-12 col-lg-12">
+							<div class="btn-group">
+							<a th:href="@{/nuevoAudi}" class="btn btn-dark"><i
+									class="mdi mdi-file-plus-outline mr-1"></i> Nuevo</a>
+							<a th:href="@{/expExcel}" class="btn btn-success"><i
+									class="mdi mdi-file-excel mr-1"></i>Exportar Excel</a>
+							<a th:href="@{/listaUsuarios}" sec:authorize="hasAnyAuthority('ADMIN')"
+								class="btn btn-dark"><i class="mdi mdi-account-plus  mr-1"></i>Crear Usuario</a>
+								</div>	
+						</div>
+
+					</div>
+					<div class="row" style="overflow-x: auto;">
+						<div class="col-md-14 stretch-cards">
+							<div class="card">
+								<div class="card-body">
+									<p class="card-title py-3" style="font-size:20px;font-weight:100; color:#737F8B;">
+										Lista Auditoria</p>
+									<div class="row">
+										<div class="col-12">
+											<div class="table-responsive">
+												<table id="example" class="display table table-bordered table-striped"
+													style="width:100%">
+													<thead>
+														<tr class="thead-dark">
+															<th style="text-align: center;">ID</th>
+															<th style="text-align: center">Fecha</th>
+															<th style="text-align: center">Nombre de Asesor</th>
+															<th style="text-align: center">Nombre de Cliente</th>
+															<th style="text-align: center">Tipo de Contacto</th>			
+															<th style="text-align: center">Oficina</th>
+															<th style="text-align: center">Editar</th>
+															<th style="text-align: center">Eliminar</th>
+														</tr>
+													</thead>
+													<tbody>
+
+														<tr th:each="auditoria:${listaAuditoria}">
+															<td><a class="ml-2 text-dark font-weight-bold"
+																	th:href="@{/detalle/} + ${auditoria.ID}"><span
+																		th:text="${auditoria.ID}" style="font-size: 12px;"></span></a></td>
+															<td th:text="${#dates.format(auditoria.FECHA, 'yyyy-MM-dd HH:mm')}" style="font-size: 10px;"
+																class="text-center"></td>
+																<td th:text="${auditoria.ASESOR}"style="font-size: 10px;"
+																class="text-center"></td>
+																<td th:text="${auditoria.NOMBRE_DEL_CLIENTE}"style="font-size: 10px;"
+																class="text-center"></td>
+															<td th:text="${auditoria.TIPO_DE_CONTACTO}"style="font-size: 10px;"
+																class="text-center"></td>
+															
+															<td th:text="${auditoria.OFICINA}" style="font-size: 12px;" class="text-center"></td>
+															<td style="text-align: center">
+																<a class="p-0" th:href="@{/edit/} + ${auditoria.ID}"> <i
+																		class="mdi mdi-square-edit-outline"
+																		style="font-size:20px;color:#000000;"></i>
+																</a>
+															<td style="text-align:center">
+																<a class="p-0"
+																	th:href="@{/eliminar/} + ${auditoria.ID}"><i
+																		class="mdi mdi-trash-can-outline"
+																		style="font-size:20px;color: #000000"></i></a>
+															</td>
+
+														
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- content-wrapper ends -->
+		<!-- partial:partials/_footer.html -->
+		<footer class="footer">
+			<div class="d-sm-flex justify-content-center justify-content-sm-between">
+				<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright
+					© 2023. Todos los derechos reservados.</span>
+			</div>
+
+		</footer>
+		<!-- partial -->
+	</div>
+	<!-- main-panel ends -->
+	</div>
+	<!-- page-body-wrapper ends -->
+	</div>
+	<!-- container-scroller -->
+
+	<!-- plugins:js -->
+
+	<script src="/vendors/js/vendor.bundle.base.js"></script>
+	<!-- endinject -->
+	<!-- Plugin js for this page -->
+	<script src="/vendors/chart.js/Chart.min.js"></script>
+	<script src="/vendors/datatables.net/jquery.dataTables.js"></script>
+	<script src="/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+	<script src="/js/dataTables.select.min.js"></script>
+
+	<!-- End plugin js for this page -->
+	<!-- inject:js -->
+	<script src="/js/off-canvas.js"></script>
+	<script src="/js/hoverable-collapse.js"></script>
+	<script src="/js/template.js"></script>
+	<script src="/js/settings.js"></script>
+	<script src="/js/todolist.js"></script>
+	<!-- endinject -->
+	<!-- Custom js for this page-->
+	<script src="/js/dashboard.js"></script>
+	<script src="/js/Chart.roundedBarCharts.js"></script>
+	<!-- End custom js for this page-->
+</body>
+
+</html>

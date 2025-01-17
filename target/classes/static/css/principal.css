@@ -1,0 +1,54 @@
+.title-container h1 {
+  text-align: center;
+}
+
+.dashboard-container {
+
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  height: auto;
+}
+
+
+.widget {
+  padding: 30px;
+  width: 100%;
+  margin: 20px;
+  border-radius: 7px;
+  text-decoration: none;
+
+}
+
+.widget:hover {
+  text-decoration: none;
+}
+
+.widget h2 {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #fff;
+}
+
+.widget p {
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.conten {
+  width: 85%;
+  margin: auto;
+}
+
+
+/* Media queries para diseño responsive */
+@media screen and (max-width: 600px) {
+  .widget table {
+    font-size: 12px;
+  }
+}
